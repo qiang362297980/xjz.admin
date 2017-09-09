@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.secondBack.dao.StoreDao">
+
+    <sql id="store">
+        a.id AS "id",
+        a.name AS "name",
+        a.context AS "context",
+        a.url AS "url",
+        a.mobile AS "mobile",
+        a.create_date AS "createDate",
+        a.update_date AS "updateDate",
+        a.del_flag AS "delFlag"
+    </sql>
+
+    <resultMap id="store" type="com.secondBack.entity.Store">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="context" property="context" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="del_flag" property="delFlag" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="get" resultMap="store">
+        SELECT
+            <include refid="store"/>
+        FROM
+            xcx_store a
+    </select>
+
+    <insert id="add">
+        INSERT INTO xcx_store (
+            id,
+            name,
+            context,
+            url,
+            mobile,
+            create_date,
+            update_date,
+            del_flag
+        ) VALUES (
+            #{id},
+            #{name},
+            #{context},
+            #{url},
+            #{mobile},
+            #{createDate},
+            #{updateDate},
+            #{delFlag}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE xcx_store SET
+            name = #{name},
+            context = #{context},
+            url = #{url},
+            mobile = #{mobile},
+            create_date = #{createDate},
+            update_date = #{updateDate},
+            del_flag = #{delFlag}
+        WHERE id = #{id}
+    </update>
+</mapper>
